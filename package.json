@@ -1,7 +1,7 @@
 {
   "name": "serverless-storage",
   "version": "0.0.1",
-  "description": "This is a library which interfaces with multiple cloud storages and designed for server systems",
+  "description": "This library interfaces with multiple cloud storages, optimized for serverless architecture and concurrent writes, ensuring data integrity.",
   "main": "dist/index.js",
   "license": "MIT",
   "keywords": [
