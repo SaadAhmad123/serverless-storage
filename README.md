@@ -54,14 +54,12 @@ const s3LockableManager = new LockableStorageManager({
 - `waitForTime`: A utility function that pauses execution for a specified amount of time, useful in implementing delays or timeouts in storage operations.
 - `acquireLock`: A critical utility that attempts to acquire a lock on a resource, ensuring that only one operation can proceed at a time, thus preventing race conditions and data corruption.
 
-### Future Enhancements:
+### Future Enhancements
 - Plans to integrate more storage solutions like Azure and Google Cloud.
 - Open to contributions and feedback for further development.
 
-## Contributing and Feedback:
-
+## Contributing and Feedback
 We encourage contributions to expand the library's capabilities, such as adding new storage backends, enhancing locking strategies, and refining documentation. If you have questions, suggestions, or feedback, feel free to open an issue in the GitHub repository.
 
-## License:
-
+## License
 `serverless-storage` is available under the MIT License. For more details, refer to the [LICENSE.md](/LICENSE.md) file in the project repository.
