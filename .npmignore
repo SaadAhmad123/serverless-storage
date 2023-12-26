@@ -6,3 +6,6 @@ tests
 jest.config.ts
 tsconfig.json
 .yarnrc.yml
+.env
+coverage
+

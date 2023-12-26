@@ -37,7 +37,12 @@ const testData = 'Hello Jest!';
 describe('S3StorageManager', () => {
   beforeAll(async () => {
     // Create an S3 bucket for testing
-    await createBucket(TEST_BUCKET_NAME!);
+    try {
+      await createBucket(TEST_BUCKET_NAME!);
+    } catch (error) {
+      console.error(error)
+    }
+    
   });
 
   afterAll(async () => {
