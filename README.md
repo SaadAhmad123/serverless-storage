@@ -65,9 +65,9 @@ resource "aws_s3_bucket" "my_bucket" {
   bucket = "my-unique-bucket-name" # Change to your unique bucket name
 }
 
-resource "aws_iam_policy" "s3_pixel_db_access" {
-  name        = "${local.name_prefix}-pixeldb-access-policy"
-  description = "Policy for read/write access to the pixel_db S3 bucket"
+resource "aws_iam_policy" "my_bucket" {
+  name        = "my-bucket-policy"
+  description = "Policy for read/write access to the S3 bucket"
 
   policy = jsonencode({
     Version = "2012-10-17"
