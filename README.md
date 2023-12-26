@@ -57,6 +57,91 @@ const s3LockableManager = new LockableStorageManager({
 - Plans to integrate more storage solutions like Azure and Google Cloud.
 - Open to contributions and feedback for further development.
 
+## Terraform
+
+### S3 bucket storage
+```hcl
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "my-unique-bucket-name" # Change to your unique bucket name
+}
+
+resource "aws_iam_policy" "s3_pixel_db_access" {
+  name        = "${local.name_prefix}-pixeldb-access-policy"
+  description = "Policy for read/write access to the pixel_db S3 bucket"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ],
+        Effect = "Allow",
+        Resource = [
+          "${aws_s3_bucket.my_bucket.arn}/*" # Granting access to all objects in the bucket
+        ]
+      },
+      {
+        Action = [
+          "s3:ListBucket"
+        ],
+        Effect = "Allow",
+        Resource = [
+          aws_s3_bucket.my_bucket.arn
+        ]
+      }
+    ]
+  })
+}
+```
+
+### DynamoDB locking manager
+```hcl
+resource "aws_dynamodb_table" "locking_table" {
+  name           = "lockingTable"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "id"
+  attribute {
+    name = "id"
+    type = "S"  # 'S' denotes a string type
+  }
+  ttl {
+    attribute_name = "expireAt"
+    enabled        = true
+  }
+  tags = {
+    Name        = "LockingTable"
+    Environment = "Production"
+  }
+}
+
+resource "aws_iam_policy" "dynamodb_locking_policy" {
+  name        = "DynamoDBLockingPolicy"
+  description = "IAM policy for accessing DynamoDB Locking Table"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:DescribeTable"
+        ],
+        Resource = aws_dynamodb_table.locking_table.arn
+      }
+    ]
+  })
+}
+```
+
+
 ## Contributing and Feedback
 We encourage contributions to expand the library's capabilities, such as adding new storage backends, enhancing locking strategies, and refining documentation. If you have questions, suggestions, or feedback, feel free to open an issue in the GitHub repository.
 
