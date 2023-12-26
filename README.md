@@ -1,16 +1,15 @@
-# `serverless-storage`
-### A Unified Interface for Cloud-Based Storage and Lock Management
+# A Unified Interface for Cloud-Based Storage and Lock Management
 
-`serverless-storage` is a versatile TypeScript library designed to simplify interactions with cloud-based storage systems like AWS, GCP, and Azure. Its primary goal is to provide a standardized interface for reading, writing, and deleting data, along with robust lock management to ensure data integrity during concurrent operations. This library is especially useful for developers working with serverless architectures who need to interface with various cloud storage providers.
+`unified-serverless-storage` is a versatile TypeScript library designed to simplify interactions with cloud-based storage systems like AWS, GCP, and Azure. Its primary goal is to provide a standardized interface for reading, writing, and deleting data, along with robust lock management to ensure data integrity during concurrent operations. This library is especially useful for developers working with serverless architectures who need to interface with various cloud storage providers.
 
 ## Installation
 You can install it via NPM or YARN
 ```bash
-npm install serverless-storage
+npm install unified-serverless-storage
 ```
 
 ```bash
-yarn add serverless-storage
+yarn add unified-serverless-storage
 ```
 
 ## Key Features
@@ -24,7 +23,7 @@ yarn add serverless-storage
 - **Support for Additional Managers**:
    The library's architecture is deliberately flexible, allowing for easy integration of new storage and lock managers as they become necessary. This design choice ensures that developers can swiftly adapt the library to accommodate evolving storage needs and technologies.
 - **Cross-Cloud Service Compatibility**:
-   A key strength of `serverless-storage` is its ability to maintain compatibility across various cloud platforms. This ensures that the library can serve as a universal interface for cloud storage operations, simplifying the development process for applications that span multiple cloud environments.
+   A key strength of `unified-serverless-storage` is its ability to maintain compatibility across various cloud platforms. This ensures that the library can serve as a universal interface for cloud storage operations, simplifying the development process for applications that span multiple cloud environments.
 
 ### Implemented Classes
 - `LocalFileStorageManager`: Manages storage operations on the local file system, providing a reliable and easy-to-use interface for local storage handling.
@@ -62,4 +61,4 @@ const s3LockableManager = new LockableStorageManager({
 We encourage contributions to expand the library's capabilities, such as adding new storage backends, enhancing locking strategies, and refining documentation. If you have questions, suggestions, or feedback, feel free to open an issue in the GitHub repository.
 
 ## License
-`serverless-storage` is available under the MIT License. For more details, refer to the [LICENSE.md](/LICENSE.md) file in the project repository.
+`unified-serverless-storage` is available under the MIT License. For more details, refer to the [LICENSE.md](/LICENSE.md) file in the project repository.
