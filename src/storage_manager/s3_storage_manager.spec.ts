@@ -28,6 +28,7 @@ const deleteBucket = async (bucketName: string) => {
 
 const storageManager = new S3StorageManager(
   TEST_BUCKET_NAME!,
+  'some_path/some_path_1/',
   AWS_ACCESS_KEY,
   AWS_SECRET_KEY,
 );
@@ -40,9 +41,8 @@ describe('S3StorageManager', () => {
     try {
       await createBucket(TEST_BUCKET_NAME!);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-    
   });
 
   afterAll(async () => {

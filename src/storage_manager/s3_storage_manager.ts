@@ -20,16 +20,26 @@ export default class S3StorageManager implements IStorageManager {
    * Required S3 permissions include s3:GetObject, s3:PutObject, s3:DeleteObject and s3:ListBucket
    *
    * @param bucketName - The name of the S3 bucket to use for storage.
+   * @param path - The path of the folder. Format must be path/to/folder/.
    * @param awsAccessKey - Optional AWS IAM access key ID.
    * @param awsSecretKey - Optional AWS IAM secret access key.
    * @param awsRegion - Optional AWS region for the S3 bucket.
    */
   constructor(
     private bucketName: string,
+    private path: string = '',
     private awsAccessKey?: string,
     private awsSecretKey?: string,
     private awsRegion?: string,
   ) {
+    if (
+      this.path &&
+      (!/^(\/?[a-zA-Z0-9_-]+)+\/$/.test(this.path) || this.path[0] === '/')
+    ) {
+      throw new Error(
+        `Invalid path format. Please use a valid path like 'path/to/folder/'. Provided is ${this.path}`,
+      );
+    }
     this.s3 = new S3({
       accessKeyId: this.awsAccessKey,
       secretAccessKey: this.awsSecretKey,
@@ -49,6 +59,7 @@ export default class S3StorageManager implements IStorageManager {
    */
   async read(path: string, __default: string = ''): Promise<string> {
     try {
+      path = `${this.path}${path}`;
       const response = await this.s3
         .getObject({ Bucket: this.bucketName, Key: path })
         .promise();
@@ -72,6 +83,7 @@ export default class S3StorageManager implements IStorageManager {
    * @returns A promise resolved once the deletion is complete.
    */
   async delete(path: string): Promise<void> {
+    path = `${this.path}${path}`;
     await this.s3
       .deleteObject({ Bucket: this.bucketName, Key: path })
       .promise();
@@ -90,6 +102,7 @@ export default class S3StorageManager implements IStorageManager {
    * @returns A promise resolved once the write operation is complete.
    */
   async write(data: string, path: string): Promise<void> {
+    path = `${this.path}${path}`;
     await this.s3
       .putObject({ Body: data, Bucket: this.bucketName, Key: path })
       .promise();
@@ -106,6 +119,7 @@ export default class S3StorageManager implements IStorageManager {
    */
   async exists(path: string): Promise<boolean> {
     try {
+      path = `${this.path}${path}`;
       await this.s3
         .headObject({ Bucket: this.bucketName, Key: path })
         .promise();

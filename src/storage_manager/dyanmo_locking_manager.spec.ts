@@ -43,15 +43,15 @@ describe('DynamoLockingManager', () => {
     expect(locked).toBe(true);
     locked = await lockingManager.lock(pathToLock);
     expect(locked).toBe(false);
-    const isLocked = await lockingManager.isLocked(pathToLock)
-    expect(isLocked).toBe(true)
+    const isLocked = await lockingManager.isLocked(pathToLock);
+    expect(isLocked).toBe(true);
   });
 
   it('Unlock the acquired lock', async () => {
     let unlocked = await lockingManager.unlock(pathToLock);
     expect(unlocked).toBe(true);
-    const isLocked = await lockingManager.isLocked(pathToLock)
-    expect(isLocked).toBe(false)
+    const isLocked = await lockingManager.isLocked(pathToLock);
+    expect(isLocked).toBe(false);
     unlocked = await lockingManager.unlock(pathToLock);
     expect(unlocked).toBe(false);
     let locked = await lockingManager.lock(pathToLock);

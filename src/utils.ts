@@ -16,7 +16,7 @@ export class AcquireLockError extends Error {
 
 /**
  * Waits for a specified duration.
- * 
+ *
  * @param ms - The amount of time to wait in milliseconds.
  * @returns A promise that resolves after the specified duration.
  */
@@ -25,7 +25,7 @@ export const waitForTime = (ms: number): Promise<void> =>
 
 /**
  * Tries to acquire a lock on a resource, with retries if necessary.
- * 
+ *
  * @param pathToLock - The path of the resource to lock.
  * @param lockingManager - The locking manager to handle the lock operation.
  * @param maxRetry - The maximum number of retry attempts (defaults to 5).
@@ -45,7 +45,5 @@ export async function acquireLock(
       await waitForTime(retryWait);
     }
   }
-  throw new AcquireLockError(
-    `Could not acquire lock on path ${pathToLock}.`,
-  );
+  throw new AcquireLockError(`Could not acquire lock on path ${pathToLock}.`);
 }

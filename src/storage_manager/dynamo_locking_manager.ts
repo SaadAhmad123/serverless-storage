@@ -15,7 +15,7 @@ function getTimestamp(): number {
  * This class provides mechanisms to acquire, release, and check locks on resource paths
  * stored in a specified DynamoDB table. It's suitable for managing access to shared
  * resources in a distributed environment.
- * 
+ *
  * @remarks
  * - The DynamoDB table must be configured with a primary key named `id` (type String),
  *   which stores the resource paths.
