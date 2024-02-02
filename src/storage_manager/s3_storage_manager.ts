@@ -57,17 +57,17 @@ export default class S3StorageManager implements IStorageManager {
    * @param __default - The default value to return if the object is not found or an error occurs.
    * @returns A promise resolving to the data read or the default value.
    */
-  async read(path: string, __default: string = ''): Promise<string> {
+  async read(path: string, __default: string = ''): Promise<{ data: string }> {
     try {
       path = `${this.path}${path}`;
       const response = await this.s3
         .getObject({ Bucket: this.bucketName, Key: path })
         .promise();
-      return response.Body?.toString() || __default;
+      return { data: response.Body?.toString() || __default };
     } catch (error) {
       if ((error as any).code === 'NoSuchKey') {
         console.log(`File ${path} not found in bucket ${this.bucketName}.`);
-        return __default;
+        return { data: __default };
       } else {
         throw error;
       }

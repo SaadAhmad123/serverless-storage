@@ -38,7 +38,10 @@ export default class LockableStorageManager implements ILockableStorageManager {
    * @param __default - The default value to return if data is not found.
    * @returns A promise resolving to the data read from the path or the default value.
    */
-  async read(path: string, __default: string): Promise<string> {
+  async read(
+    path: string,
+    __default: string,
+  ): Promise<{ data: string; [key: string]: any }> {
     if (!this.params.storageManager) {
       throw new Error(
         `[LockableStorageManager][read] Trying to use storage manager which does not exist.`,

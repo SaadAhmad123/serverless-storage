@@ -21,7 +21,10 @@ export interface IStorageManager {
    * @param __default - The default value to return if the data is not found.
    * @returns A promise resolving to the read data or the provided default value.
    */
-  read(path: string, __default: string): Promise<string>;
+  read(
+    path: string,
+    __default: string,
+  ): Promise<{ data: string; [key: string]: any }>;
 
   /**
    * Deletes data from a specified storage path.

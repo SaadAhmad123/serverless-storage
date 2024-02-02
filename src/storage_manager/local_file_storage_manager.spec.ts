@@ -50,14 +50,14 @@ describe('LocalFileStorageManager', () => {
     fs.writeFileSync(path.join(rootDir, relativePath), data);
 
     const readData = await manager.read(relativePath);
-    expect(readData).toBe(data);
+    expect(readData.data).toBe(data);
   });
 
   it('should return default value when reading from a non-existent file', async () => {
     const defaultValue = 'Default Value';
     const readData = await manager.read('nonExistentFile.txt', defaultValue);
 
-    expect(readData).toBe(defaultValue);
+    expect(readData.data).toBe(defaultValue);
   });
 
   it('should delete a file', async () => {

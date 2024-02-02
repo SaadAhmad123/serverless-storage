@@ -73,13 +73,13 @@ describe('S3StorageManager', () => {
   });
 
   it('should read data from S3', async () => {
-    const data = await storageManager.read(testFilePath);
+    const { data } = await storageManager.read(testFilePath);
     expect(data).toBe(testData);
   });
 
   it('should return default value if file does not exist', async () => {
     const defaultValue = 'DEFAULT_VALUE';
-    const data = await storageManager.read(
+    const { data } = await storageManager.read(
       'non-existent-file.txt',
       defaultValue,
     );

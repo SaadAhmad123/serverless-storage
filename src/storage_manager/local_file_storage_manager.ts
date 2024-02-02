@@ -48,13 +48,16 @@ export default class LocalFileStorageManager implements IStorageManager {
    * @param __default - The default value to return if the file is not found or an error occurs.
    * @returns A promise resolved to the data read from the file or the default value.
    */
-  async read(relativePath: string, __default: string = ''): Promise<string> {
+  async read(
+    relativePath: string,
+    __default: string = '',
+  ): Promise<{ data: string; [key: string]: any }> {
     const fullPath = path.join(this.rootDir, relativePath);
     try {
-      return fs.readFileSync(fullPath, 'utf-8');
+      return { data: fs.readFileSync(fullPath, 'utf-8') };
     } catch (err) {
       console.error(err);
-      return __default;
+      return { data: __default };
     }
   }
 
