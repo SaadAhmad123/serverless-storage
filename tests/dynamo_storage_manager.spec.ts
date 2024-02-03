@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import { DynamoDbManager } from './dyanmo_db_manager.spec.lib';
-import DynamoStorageManager from './dynamo_storage_manager';
+import DynamoStorageManager from '../src/storage_manager/dynamo_storage_manager';
 config();
 
 const { AWS_ACCESS_KEY, AWS_SECRET_KEY, TEST_DYNAMO_DB_NAME, AWS_REGION } =

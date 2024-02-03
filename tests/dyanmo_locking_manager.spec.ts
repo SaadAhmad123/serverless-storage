@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import DynamoLockingManager from './dynamo_locking_manager';
+import DynamoLockingManager from '../src/locking_manager/dynamo_locking_manager';
 import { DynamoDbManager } from './dyanmo_db_manager.spec.lib';
 config();
 

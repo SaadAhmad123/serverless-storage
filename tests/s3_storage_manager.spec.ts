@@ -1,5 +1,5 @@
 import { S3 } from 'aws-sdk';
-import S3StorageManager from './s3_storage_manager';
+import S3StorageManager from '../src/storage_manager/s3_storage_manager';
 import { config } from 'dotenv';
 
 config();

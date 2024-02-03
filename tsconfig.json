@@ -12,7 +12,7 @@
   },
   "include": [
     "src/**/*.ts" // Include all TypeScript files in the 'src' directory
-  ],
+, "tests/dyanmo_db_manager.spec.lib.ts", "tests/dyanmo_locking_manager.spec.ts", "tests/dynamo_storage_manager.spec.ts", "tests/local_file_storage_manager.spec.ts", "tests/s3_storage_manager.spec.ts"  ],
   "exclude": [
     "node_modules", // your existing exclude pattern
     "**/*.spec.ts", // this line will exclude all .spec.ts files

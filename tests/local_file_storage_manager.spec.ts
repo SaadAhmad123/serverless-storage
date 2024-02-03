@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import LocalFileStorageManager from './local_file_storage_manager'; // Update this path to the correct location
+import LocalFileStorageManager from '../src/storage_manager/local_file_storage_manager'; // Update this path to the correct location
 
 describe('LocalFileStorageManager', () => {
   let rootDir: string;
