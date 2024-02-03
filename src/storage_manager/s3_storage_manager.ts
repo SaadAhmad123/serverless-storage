@@ -9,6 +9,17 @@ import { IStorageManager } from './index';
  */
 export default class S3StorageManager implements IStorageManager {
   private s3: S3;
+  private log: (log: string) => void;
+
+  /**
+   * Sets the logger function for logging messages within the S3StorageManager.
+   *
+   * @param logger - The logger function to set.
+   */
+  public setLogger(logger: (log: string) => void): S3StorageManager {
+    this.log = logger;
+    return this;
+  }
 
   /**
    * Constructs an S3StorageManager for interacting with Amazon S3 storage.
@@ -45,6 +56,7 @@ export default class S3StorageManager implements IStorageManager {
       secretAccessKey: this.awsSecretKey,
       region: this.awsRegion,
     });
+    this.log = (log) => console.log(log);
   }
 
   /**
@@ -57,17 +69,20 @@ export default class S3StorageManager implements IStorageManager {
    * @param __default - The default value to return if the object is not found or an error occurs.
    * @returns A promise resolving to the data read or the default value.
    */
-  async read(path: string, __default: string = ''): Promise<{ data: string }> {
+  async read(
+    path: string,
+    __default: string = '',
+  ): Promise<{ data: string; path: string }> {
     try {
       path = `${this.path}${path}`;
       const response = await this.s3
         .getObject({ Bucket: this.bucketName, Key: path })
         .promise();
-      return { data: response.Body?.toString() || __default };
+      return { data: response.Body?.toString() || __default, path };
     } catch (error) {
       if ((error as any).code === 'NoSuchKey') {
-        console.log(`File ${path} not found in bucket ${this.bucketName}.`);
-        return { data: __default };
+        this.log(`File ${path} not found in bucket ${this.bucketName}.`);
+        return { data: __default, path };
       } else {
         throw error;
       }
@@ -87,7 +102,7 @@ export default class S3StorageManager implements IStorageManager {
     await this.s3
       .deleteObject({ Bucket: this.bucketName, Key: path })
       .promise();
-    console.log(
+    this.log(
       `File ${path} deleted successfully from bucket ${this.bucketName}.`,
     );
   }
@@ -106,7 +121,7 @@ export default class S3StorageManager implements IStorageManager {
     await this.s3
       .putObject({ Body: data, Bucket: this.bucketName, Key: path })
       .promise();
-    console.log(
+    this.log(
       `File ${path} has been written successfully in bucket ${this.bucketName}.`,
     );
   }

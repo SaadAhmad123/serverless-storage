@@ -24,7 +24,7 @@ export interface IStorageManager {
   read(
     path: string,
     __default: string,
-  ): Promise<{ data: string; [key: string]: any }>;
+  ): Promise<{ data: string; path: string; [key: string]: any }>;
 
   /**
    * Deletes data from a specified storage path.

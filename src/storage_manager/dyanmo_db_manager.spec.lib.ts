@@ -47,17 +47,19 @@ export class DynamoDbManager {
    * @remarks
    * This method creates a table with a primary key named 'id'. It sets the billing mode to 'PAY_PER_REQUEST'.
    */
-  async createTable(): Promise<AWS.DynamoDB.CreateTableOutput> {
+  async createTable(
+    primaryKey: string = 'id',
+  ): Promise<AWS.DynamoDB.CreateTableOutput> {
     const params: AWS.DynamoDB.CreateTableInput = {
       AttributeDefinitions: [
         {
-          AttributeName: 'id',
+          AttributeName: primaryKey,
           AttributeType: 'S', // 'S' denotes a string type
         },
       ],
       KeySchema: [
         {
-          AttributeName: 'id',
+          AttributeName: primaryKey,
           KeyType: 'HASH', // 'HASH' denotes the attribute as the primary key
         },
       ],

@@ -1,7 +1,7 @@
 {
   "name": "unified-serverless-storage",
   "author": "Saad Ahmad <saadkwi12@hotmail.com>",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "This library interfaces with multiple cloud storages, optimized for serverless architecture and concurrent writes, ensuring data integrity.",
   "main": "dist/index.js",
   "license": "MIT",

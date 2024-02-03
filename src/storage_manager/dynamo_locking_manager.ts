@@ -1,14 +1,6 @@
 import * as AWS from 'aws-sdk';
 import { ILockingManager } from '.';
-
-/**
- * Get the current timestamp in seconds since the Unix epoch.
- * @returns {number} The current timestamp in seconds.
- */
-function getTimestamp(): number {
-  const now = new Date();
-  return Math.floor(now.getTime() / 1000);
-}
+import { getTimestamp } from '../utils';
 
 /**
  * A locking manager that utilizes AWS DynamoDB for distributed locking.
@@ -24,6 +16,17 @@ function getTimestamp(): number {
  */
 export default class DynamoLockingManager implements ILockingManager {
   private dynamoDb: AWS.DynamoDB.DocumentClient;
+  private log: (log: string) => void;
+
+  /**
+   * Sets the logger function for logging messages within the S3StorageManager.
+   *
+   * @param logger - The logger function to set.
+   */
+  public setLogger(logger: (log: string) => void): DynamoLockingManager {
+    this.log = logger;
+    return this;
+  }
 
   /**
    * Creates an instance of DynamoLockingManager.
@@ -49,6 +52,7 @@ export default class DynamoLockingManager implements ILockingManager {
       region: this.awsRegion,
     });
     this.dynamoDb = new AWS.DynamoDB.DocumentClient();
+    this.log = (log) => console.log(log);
   }
 
   /**
@@ -78,7 +82,7 @@ export default class DynamoLockingManager implements ILockingManager {
         statusCode: (error as AWS.AWSError).statusCode,
         code: (error as AWS.AWSError).code,
       });
-      console.error(`[Error][DynamoLockingManager.lock] ${e}`);
+      this.log(`[Error][DynamoLockingManager.lock] ${e}`);
       return false;
     }
   }
@@ -108,7 +112,7 @@ export default class DynamoLockingManager implements ILockingManager {
         statusCode: (error as AWS.AWSError).statusCode,
         code: (error as AWS.AWSError).code,
       });
-      console.error(`[Error][DynamoLockingManager.unlock] ${e}`);
+      this.log(`[Error][DynamoLockingManager.unlock] ${e}`);
       return false;
     }
   }
@@ -138,7 +142,7 @@ export default class DynamoLockingManager implements ILockingManager {
         statusCode: (error as AWS.AWSError).statusCode,
         code: (error as AWS.AWSError).code,
       });
-      console.error(`[Error][DynamoLockingManager.isLocked] ${e}`);
+      this.log(`[Error][DynamoLockingManager.isLocked] ${e}`);
       return false;
     }
   }

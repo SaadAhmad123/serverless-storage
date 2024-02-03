@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import DynamoLockingManager from './dynamo_locking_manager';
-import { DynamoDbManager } from './dyanmo_locking_manager.spec.lib';
+import { DynamoDbManager } from './dyanmo_db_manager.spec.lib';
 config();
 
 const { AWS_ACCESS_KEY, AWS_SECRET_KEY, TEST_DYNAMO_DB_NAME, AWS_REGION } =

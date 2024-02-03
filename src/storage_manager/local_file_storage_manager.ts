@@ -10,12 +10,26 @@ import { IStorageManager } from './index';
  * interpreted relative to a specified root directory.
  */
 export default class LocalFileStorageManager implements IStorageManager {
+  private log: (log: string) => void;
+
+  /**
+   * Sets the logger function for logging messages within the S3StorageManager.
+   *
+   * @param logger - The logger function to set.
+   */
+  public setLogger(logger: (log: string) => void): LocalFileStorageManager {
+    this.log = logger;
+    return this;
+  }
+
   /**
    * Constructs a LocalFileStorageManager instance.
    *
    * @param rootDir - The root directory for managing files. All file operations will be relative to this directory.
    */
-  constructor(private rootDir: string) {}
+  constructor(private rootDir: string) {
+    this.log = (log) => console.log(log);
+  }
 
   /**
    * Writes data to a file at the specified relative path.
@@ -35,7 +49,7 @@ export default class LocalFileStorageManager implements IStorageManager {
       fs.mkdirSync(directory, { recursive: true });
     }
     fs.writeFileSync(fullPath, data);
-    console.log(`File ${fullPath} has been written successfully.`);
+    this.log(`File ${fullPath} has been written successfully.`);
   }
 
   /**
@@ -51,13 +65,17 @@ export default class LocalFileStorageManager implements IStorageManager {
   async read(
     relativePath: string,
     __default: string = '',
-  ): Promise<{ data: string; [key: string]: any }> {
+  ): Promise<{ data: string; path: string; [key: string]: any }> {
     const fullPath = path.join(this.rootDir, relativePath);
     try {
-      return { data: fs.readFileSync(fullPath, 'utf-8') };
+      return { path: fullPath, data: fs.readFileSync(fullPath, 'utf-8') };
     } catch (err) {
-      console.error(err);
-      return { data: __default };
+      if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
+        this.log(`File ${fullPath} not found.`);
+        return { path: fullPath, data: __default };
+      } else {
+        throw err;
+      }
     }
   }
 
@@ -74,12 +92,12 @@ export default class LocalFileStorageManager implements IStorageManager {
     const fullPath = path.join(this.rootDir, relativePath);
     try {
       fs.unlinkSync(fullPath);
-      console.log(`File ${fullPath} has been deleted successfully.`);
+      this.log(`File ${fullPath} has been deleted successfully.`);
     } catch (err) {
       if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
-        console.log(`File ${fullPath} not found.`);
+        this.log(`File ${fullPath} not found.`);
       } else {
-        console.error(err);
+        throw err;
       }
     }
   }

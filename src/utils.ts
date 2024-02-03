@@ -47,3 +47,11 @@ export async function acquireLock(
   }
   throw new AcquireLockError(`Could not acquire lock on path ${pathToLock}.`);
 }
+/**
+ * Get the current timestamp in seconds since the Unix epoch.
+ * @returns {number} The current timestamp in seconds.
+ */
+export function getTimestamp(): number {
+  const now = new Date();
+  return Math.floor(now.getTime() / 1000);
+}

@@ -41,7 +41,7 @@ export default class LockableStorageManager implements ILockableStorageManager {
   async read(
     path: string,
     __default: string,
-  ): Promise<{ data: string; [key: string]: any }> {
+  ): Promise<{ data: string; path: string; [key: string]: any }> {
     if (!this.params.storageManager) {
       throw new Error(
         `[LockableStorageManager][read] Trying to use storage manager which does not exist.`,
