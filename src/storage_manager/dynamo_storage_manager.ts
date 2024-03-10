@@ -47,7 +47,7 @@ export type IDynamoStorageManager = {
  *   awsAccessKey: 'your-access-key',
  *   awsSecretKey: 'your-secret-key',
  *   awsRegion: 'your-region',
- *   transformPreWrite: (data, path) => ({
+ *   appendPreWrite: (data, path) => ({
  *     customAttribute: 'some-value',
  *     originalData: data,
  *     originalPath: path,
