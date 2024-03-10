@@ -9,6 +9,7 @@ import S3StorageManager from './storage_manager/s3_storage_manager';
 import LocalFileStorageManager from './storage_manager/local_file_storage_manager';
 import { AcquireLockError, waitForTime, acquireLock } from './utils';
 import DynamoStorageManager, {IDynamoStorageManager} from './storage_manager/dynamo_storage_manager';
+import CosmosStorageManager, {ICosmosStorageManager} from './storage_manager/cosmos_storage_manager';
 
 const utils = {
   AcquireLockError,
@@ -22,6 +23,8 @@ export {
   ILockingManager,
   IDynamoStorageManager,
   DynamoStorageManager,
+  ICosmosStorageManager,
+  CosmosStorageManager,
   LockableStorageManager,
   DynamoLockingManager,
   S3StorageManager,
