@@ -1,5 +1,5 @@
 import * as AWS from 'aws-sdk';
-import { ILockingManager } from ".";
+import { ILockingManager } from '.';
 import { getTimestamp } from '../utils';
 
 /**

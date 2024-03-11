@@ -1,7 +1,7 @@
 {
   "name": "unified-serverless-storage",
   "author": "Saad Ahmad <saadkwi12@hotmail.com>",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "This library interfaces with multiple cloud storages, optimized for serverless architecture and concurrent writes, ensuring data integrity.",
   "main": "dist/index.js",
   "license": "MIT",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@azure/cosmos": "^4.0.0",
+    "@azure/storage-blob": "^12.17.0",
     "aws-sdk": "^2.1478.0"
   },
   "devDependencies": {

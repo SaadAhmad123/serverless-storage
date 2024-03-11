@@ -1,4 +1,4 @@
-import { ILockingManager } from "./locking_manager";
+import { ILockingManager } from './locking_manager';
 
 /**
  * Represents an error when acquiring a lock fails.

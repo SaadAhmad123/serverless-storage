@@ -1,5 +1,5 @@
 import { IStorageManager } from '.';
-import { ILockingManager } from "../locking_manager";
+import { ILockingManager } from '../locking_manager';
 
 /**
  * Interface extending both IStorageManager and ILockingManager.

@@ -1,5 +1,5 @@
 import { IStorageManager } from './storage_manager';
-import { ILockingManager } from "./locking_manager";
+import { ILockingManager } from './locking_manager';
 import LockableStorageManager, {
   ILockableStorageManager,
   LockableStorageMangerInput,
@@ -8,8 +8,15 @@ import DynamoLockingManager from './locking_manager/dynamo_locking_manager';
 import S3StorageManager from './storage_manager/s3_storage_manager';
 import LocalFileStorageManager from './storage_manager/local_file_storage_manager';
 import { AcquireLockError, waitForTime, acquireLock } from './utils';
-import DynamoStorageManager, {IDynamoStorageManager} from './storage_manager/dynamo_storage_manager';
-import CosmosStorageManager, {ICosmosStorageManager} from './storage_manager/cosmos_storage_manager';
+import DynamoStorageManager, {
+  IDynamoStorageManager,
+} from './storage_manager/dynamo_storage_manager';
+import CosmosStorageManager, {
+  ICosmosStorageManager,
+} from './storage_manager/cosmos_storage_manager';
+import AzureBlobStorageManager, {
+  IAzureBlobStorageManager,
+} from './storage_manager/azure_blob_storage_manager';
 
 const utils = {
   AcquireLockError,
@@ -25,6 +32,8 @@ export {
   DynamoStorageManager,
   ICosmosStorageManager,
   CosmosStorageManager,
+  IAzureBlobStorageManager,
+  AzureBlobStorageManager,
   LockableStorageManager,
   DynamoLockingManager,
   S3StorageManager,

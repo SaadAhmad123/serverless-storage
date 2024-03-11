@@ -42,5 +42,3 @@ export interface IStorageManager {
    */
   exists(path: string): Promise<boolean>;
 }
-
-
