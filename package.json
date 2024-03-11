@@ -19,7 +19,7 @@
     "format": "npx prettier --write ."
   },
   "engines": {
-    "node": ">=16.10.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@azure/cosmos": "^4.0.0",
